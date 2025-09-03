@@ -67,20 +67,18 @@ public class UsuarioService {
     }
 
     public Usuario update(Integer id, UsuarioUpdateDto dto, Integer usuarioLogadoId){
-        Usuario usuario = this.findById(id);
-        if(usuario == null)
-            throw new NotFoundException("Usuario não encontrado");
 
-        if(usuarioLogadoId != null) {
-            Usuario usuarioLogado = this.findById(usuarioLogadoId);
-            if (usuarioLogado != null) {
-                if (usuarioLogado.getRole() == Role.USER && !usuarioLogado.getId().equals(usuario.getId())) {
-                    throw new UnauthorizedException("Acesso negado: Apenas administradores podem editar usuários");
-                }
-                if(usuarioLogado.getRole() == Role.ADMIN){
-                    usuario.setRole(dto.getRole());
-                }
-            }
+        if(usuarioLogadoId == null)
+            throw new UnauthorizedException("Acesso negado: Apenas usuarios autenticados podem realizar essa ação");
+        Usuario usuario = this.findById(id);
+
+        Usuario usuarioLogado = this.findById(usuarioLogadoId);
+
+        if (usuarioLogado.getRole() == Role.USER && !usuarioLogado.getId().equals(usuario.getId())) {
+            throw new UnauthorizedException("Acesso negado: Apenas administradores podem editar usuários");
+        }
+        if(usuarioLogado.getRole() == Role.ADMIN){
+            usuario.setRole(dto.getRole());
         }
 
         if(dto.getNome() != null)

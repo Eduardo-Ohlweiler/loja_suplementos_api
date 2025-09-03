@@ -23,6 +23,7 @@ public class DataInitializer {
                 admin.setNome("LojaSuplementos");
                 admin.setEmail("admin@admin.com");
                 admin.setPassword(passwordEncoder.encode("Admin12345@")); // senha criptografada
+                admin.setTelefone("51992006747");
                 admin.setRole(Role.ADMIN);
 
                 usuarioRepository.save(admin);

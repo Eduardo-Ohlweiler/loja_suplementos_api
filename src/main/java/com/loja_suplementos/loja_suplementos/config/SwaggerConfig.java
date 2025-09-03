@@ -15,9 +15,9 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("API QueroDoar")
+                        .title("API Loja Suplementos")
                         .version("1.0")
-                        .description("Documentação da API QueroDoar"))
+                        .description("Documentação da API Loja Suplementos"))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components(new Components()
                         .addSecuritySchemes("bearerAuth",
