@@ -1,6 +1,7 @@
 package com.loja_suplementos.loja_suplementos.usuario;
 
 import com.loja_suplementos.loja_suplementos.exceptions.UnauthorizedException;
+import com.loja_suplementos.loja_suplementos.objetivo.Objetivo;
 import com.loja_suplementos.loja_suplementos.usuario.dtos.UsuarioCreateDto;
 import com.loja_suplementos.loja_suplementos.usuario.dtos.UsuarioUpdateDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -73,6 +74,17 @@ public class UsuarioController {
         Integer usuarioId     = (Integer) auth.getPrincipal();
 
         Usuario usuario = this.service.update(id, dto, usuarioId);
+        return new ResponseEntity<>(usuario, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Busca usuario por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuario encontrado"),
+            @ApiResponse(responseCode = "404", description = "Usuario não encontrado")
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> findById(@PathVariable Integer id) {
+        Usuario usuario = service.findById(id);
         return new ResponseEntity<>(usuario, HttpStatus.OK);
     }
 }

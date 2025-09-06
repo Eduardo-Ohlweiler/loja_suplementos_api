@@ -78,7 +78,8 @@ public class UsuarioService {
             throw new UnauthorizedException("Acesso negado: Apenas administradores podem editar usuários");
         }
         if(usuarioLogado.getRole() == Role.ADMIN){
-            usuario.setRole(dto.getRole());
+            if(dto.getRole() != null)
+                usuario.setRole(dto.getRole());
         }
 
         if(dto.getNome() != null)
