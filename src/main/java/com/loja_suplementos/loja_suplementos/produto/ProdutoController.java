@@ -46,4 +46,27 @@ public class ProdutoController {
         List<Produto> produtos = this.produtoService.getAll();
         return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
+
+    @Operation(summary = "Busca produto por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Produto encontrado"),
+            @ApiResponse(responseCode = "404", description = "Produto não encontrado")
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<Produto> findById(@PathVariable Integer id) {
+        Produto produto = produtoService.findById(id);
+        return new ResponseEntity<>(produto, HttpStatus.OK);
+    }
+
+    @Operation(summary  = "Delete de produto por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Produto deletado com sucesso"),
+            @ApiResponse(responseCode = "401", description = "Não autorizado")
+    })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> delete(@PathVariable int id){
+
+        this.produtoService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -52,5 +53,19 @@ public class ProdutoService {
 
         this.produtoRepository.save(produto);
         return produto;
+    }
+
+    public Produto findById(Integer id) throws NotFoundException {
+        Optional<Produto> produto = this.produtoRepository.findById(id);
+        if(produto.isEmpty())
+            throw new NotFoundException("Produto não encontrado");
+
+        return produto.get();
+    }
+
+    public void delete(Integer deleteId){
+        validadorUsuario.validarAdmin();
+        Produto produto = this.findById(deleteId);
+        this.produtoRepository.delete(produto);
     }
 }
