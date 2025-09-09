@@ -6,6 +6,7 @@ import com.loja_suplementos.loja_suplementos.exceptions.NotFoundException;
 import com.loja_suplementos.loja_suplementos.objetivo.Objetivo;
 import com.loja_suplementos.loja_suplementos.objetivo.ObjetivoRepository;
 import com.loja_suplementos.loja_suplementos.produto.dtos.CreateProdutoDto;
+import com.loja_suplementos.loja_suplementos.produto.dtos.UpdateProdutoDto;
 import com.loja_suplementos.loja_suplementos.utils.ValidadorUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,43 @@ public class ProdutoService {
 
         this.produtoRepository.save(produto);
         return produto;
+    }
+
+    public Produto update(Integer id, UpdateProdutoDto dto) {
+        validadorUsuario.validarAdmin();
+
+        Produto produto = produtoRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Produto não encontrado"));
+
+        if (dto.getProdutoNome() != null) {
+            produto.setProdutoNome(dto.getProdutoNome());
+        }
+
+        if (dto.getValor() != null) {
+            produto.setValor(dto.getValor());
+        }
+
+        if (dto.getCategoriaId() != null) {
+            Categoria categoria = categoriaRepository.findById(dto.getCategoriaId())
+                    .orElseThrow(() -> new NotFoundException("Categoria não encontrada"));
+            produto.setCategoria(categoria);
+        }
+
+        if (dto.getObjetivoId() != null) {
+            Objetivo objetivo = objetivoRepository.findById(dto.getObjetivoId())
+                    .orElseThrow(() -> new NotFoundException("Objetivo não encontrado"));
+            produto.setObjetivo(objetivo);
+        }
+
+        if (dto.getDescricao() != null) {
+            produto.setDescricao(dto.getDescricao());
+        }
+
+        if (dto.getFoto() != null) {
+            produto.setFoto(dto.getFoto());
+        }
+
+        return produtoRepository.save(produto);
     }
 
     public Produto findById(Integer id) throws NotFoundException {

@@ -3,6 +3,7 @@ package com.loja_suplementos.loja_suplementos.produto;
 import com.loja_suplementos.loja_suplementos.objetivo.Objetivo;
 import com.loja_suplementos.loja_suplementos.objetivo.dtos.ObjetivoDto;
 import com.loja_suplementos.loja_suplementos.produto.dtos.CreateProdutoDto;
+import com.loja_suplementos.loja_suplementos.produto.dtos.UpdateProdutoDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -34,6 +35,19 @@ public class ProdutoController {
 
         Produto produto = this.produtoService.create(dto);
         return new ResponseEntity<>(produto, HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "Atualiza um produto existente, rota disponível apenas para usuários administrativos")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Produto atualizado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos"),
+            @ApiResponse(responseCode = "404", description = "Produto não encontrado")
+    })
+    @PutMapping("/{id}")
+    public ResponseEntity<Produto> update(@PathVariable Integer id, @Valid @RequestBody UpdateProdutoDto dto) {
+
+        Produto produto = this.produtoService.update(id, dto);
+        return ResponseEntity.ok(produto);
     }
 
     @Operation(summary = "Lista todos os produtos")
