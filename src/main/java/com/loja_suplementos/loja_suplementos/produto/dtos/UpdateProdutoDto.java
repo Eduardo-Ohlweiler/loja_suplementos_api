@@ -4,15 +4,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 
+import java.math.BigDecimal;
+
 public class UpdateProdutoDto {
     @Size(min = 3, max = 150, message = "O nome do produto deve ter entre 3 e 150 caracteres")
     @JsonProperty("produto_nome")
     @Schema(description = "Nome completo do produto", example = "Creatina Monohidratada 300g")
     private String produtoNome;
 
-    @Positive(message = "O valor deve ser maior que zero")
-    @Schema(description = "Valor do produto", example = "120.0")
-    private Double valor;
+    @DecimalMin(value = "0.01", message = "O valor deve ser maior que zero")
+    @Digits(integer = 15, fraction = 2, message = "O valor deve ter no máximo 15 dígitos inteiros e 2 decimais")
+    @Schema(description = "Valor do produto", example = "120.00")
+    private BigDecimal valor;
 
     @JsonProperty("categoria_id")
     @Schema(description = "ID da categoria associada ao produto", example = "1")
@@ -41,11 +44,11 @@ public class UpdateProdutoDto {
         this.produtoNome = produtoNome;
     }
 
-    public Double getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(Double valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 

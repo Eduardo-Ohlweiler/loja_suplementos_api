@@ -4,6 +4,8 @@ import com.loja_suplementos.loja_suplementos.categoria.Categoria;
 import com.loja_suplementos.loja_suplementos.objetivo.Objetivo;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "produto")
 public class Produto {
@@ -15,8 +17,8 @@ public class Produto {
     @Column(name = "produto_nome", nullable = false)
     private String produtoNome;
 
-    @Column(nullable = false)
-    private Double valor;
+    @Column(nullable = false, precision = 15, scale = 2)
+    private BigDecimal valor;
 
     @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = false)
@@ -43,11 +45,11 @@ public class Produto {
         this.produtoNome = produtoNome;
     }
 
-    public Double getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(Double valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 

@@ -17,7 +17,7 @@ public class ValidadorUsuario {
         this.usuarioRepository = usuarioRepository;
     }
 
-    private Usuario getUsuarioLogado() {
+    public Usuario getUsuarioLogado() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || auth.getPrincipal() == null) {
             throw new UnauthorizedException("Usuário não autenticado");
