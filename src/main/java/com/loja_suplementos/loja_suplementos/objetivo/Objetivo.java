@@ -12,17 +12,17 @@ public class Objetivo {
     private Integer id;
 
     @Column(length=100, nullable=false)
-    private String objetivo_nome;
+    private String objetivoNome;
 
     public Integer getId() {
         return id;
     }
 
     public String getObjetivo_nome() {
-        return objetivo_nome;
+        return objetivoNome;
     }
 
     public void setObjetivo_nome(String objetivo_nome) {
-        this.objetivo_nome = objetivo_nome;
+        this.objetivoNome = objetivo_nome;
     }
 }

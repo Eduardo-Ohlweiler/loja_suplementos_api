@@ -42,7 +42,7 @@ public class ObjetivoService {
 
     public Objetivo create(ObjetivoDto dto){
 
-        Optional<Objetivo> objetivoJaSalvo = repository.findByNameIgnoreCase(dto.getObjetivoNome());
+        Optional<Objetivo> objetivoJaSalvo = repository.findByObjetivoNomeIgnoreCase(dto.getObjetivoNome());
         if (objetivoJaSalvo.isPresent())
             throw new ConflictException("Já existe cadastro com esse nome, verifique!");
 
@@ -56,7 +56,7 @@ public class ObjetivoService {
     }
 
     public Objetivo update(Integer id, ObjetivoDto dto){
-        Optional<Objetivo> objetivoJaSalvo = repository.findByNameIgnoreCase(dto.getObjetivoNome());
+        Optional<Objetivo> objetivoJaSalvo = repository.findByObjetivoNomeIgnoreCase(dto.getObjetivoNome());
         if (objetivoJaSalvo.isPresent() && !objetivoJaSalvo.get().getId().equals(id)) {
             throw new ConflictException("Já existe cadastro com esse nome, verifique!");
         }

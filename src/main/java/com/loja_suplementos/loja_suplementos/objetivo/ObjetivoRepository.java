@@ -8,9 +8,9 @@ import java.util.Optional;
 @Repository
 public interface ObjetivoRepository extends JpaRepository<Objetivo, Integer> {
 
-    Optional<Objetivo> findByName(String name);
+    Optional<Objetivo> findByObjetivoNome(String objetivoNome);
 
-    Optional<Objetivo> findByNameIgnoreCase(String name);
+    Optional<Objetivo> findByObjetivoNomeIgnoreCase(String objetivoNome);
 
-    boolean existsByName(String name);
+    boolean existsByObjetivoNome(String objetivoNome);
 }

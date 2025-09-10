@@ -35,13 +35,14 @@ public class PedidoService {
     @Transactional
     public Pedido create(PedidoCreateDto dto){
         Usuario usuario   = this.validadorUsuario.getUsuarioLogado();
+
         Pedido pedido     = new Pedido();
         pedido.setUsuario(usuario);
 
         // Lista de pedidos
         List<PedidoItem> itensPedido = new ArrayList<>();
-        double totalValor            = 0.0;
-        double totalQuantidade       = 0.0;
+        BigDecimal totalValor      = BigDecimal.ZERO;
+        BigDecimal totalQuantidade = BigDecimal.ZERO;
 
         for (PedidoItemCreateDto itemDto : dto.getItens()){
 
@@ -53,54 +54,51 @@ public class PedidoService {
             item.setProduto(produto);
 
             //QUANTIDADE
-            double quantidade = 0.0;
+            BigDecimal quantidade = BigDecimal.ZERO;
             if (itemDto.getQuantidade() != null) {
-                quantidade = itemDto.getQuantidade().doubleValue();
+                quantidade = itemDto.getQuantidade();
             }
-            item.setQuantidade(new BigDecimal(quantidade));
+            item.setQuantidade(quantidade);
+            totalQuantidade = totalQuantidade.add(quantidade);
 
             //VALOR UNITARIO
-            double valorUnitario = 0.0;
+            BigDecimal valorUnitario = BigDecimal.ZERO;
             if (produto.getValor() != null) {
-                valorUnitario = produto.getValor().doubleValue();
+                valorUnitario = produto.getValor();
             }
-            item.setValorUnitario(new BigDecimal(valorUnitario));
+            item.setValorUnitario(valorUnitario);
 
             //SUBTOTAL
-            double subTotal = 0.0;
-            if (quantidade > 0 && valorUnitario > 0) {
-                subTotal = quantidade * valorUnitario;
+            BigDecimal subTotal = BigDecimal.ZERO;
+            if (quantidade.compareTo(BigDecimal.ZERO) > 0 && valorUnitario.compareTo(BigDecimal.ZERO) > 0) {
+                subTotal = valorUnitario.multiply(quantidade);
             }
-            item.setSubTotal(new BigDecimal(subTotal));
+            item.setSubTotal(subTotal);
 
             //DESCONTO
-            double desconto = 0.0;
+            BigDecimal desconto = BigDecimal.ZERO;
             if (itemDto.getValorDesconto() != null) {
-                desconto = itemDto.getValorDesconto().doubleValue();
+                desconto = itemDto.getValorDesconto();
             }
-            item.setValorDesconto(new BigDecimal(desconto));
+            item.setValorDesconto(desconto);
 
             //ACRESCIMO
-            double acrescimo = 0.0;
+            BigDecimal acrescimo = BigDecimal.ZERO;
             if (itemDto.getValorAcrescimo() != null) {
-                acrescimo = itemDto.getValorAcrescimo().doubleValue();
+                acrescimo = itemDto.getValorAcrescimo();
             }
-            item.setValorAcrescimo(new BigDecimal(acrescimo));
+            item.setValorAcrescimo(acrescimo);
 
             //VALOR TOTAL DO ITEM
-            double totalItem = 0.0;
-            if (subTotal > 0) {
-                totalItem = subTotal - desconto + acrescimo;
-            }
-            item.setValorTotal(new BigDecimal(totalItem));
+            BigDecimal totalItem = subTotal.subtract(desconto).add(acrescimo);
+            item.setValorTotal(totalItem);
 
             itensPedido.add(item);
-            totalValor      += totalItem;
-            totalQuantidade += quantidade;
+            totalValor = totalValor.add(totalItem);
         }
 
         pedido.setPedidoItems(itensPedido);
-        pedido.setValor_total(new BigDecimal(totalValor));
+        pedido.setValor_total(totalValor);
         pedido.setQuantidade_total(totalQuantidade);
 
         return pedidoRepository.save(pedido);

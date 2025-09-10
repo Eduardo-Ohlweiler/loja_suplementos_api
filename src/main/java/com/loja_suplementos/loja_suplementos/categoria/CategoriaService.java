@@ -42,7 +42,7 @@ public class CategoriaService {
 
     public Categoria create(CategoriaDto dto){
 
-        Optional<Categoria> categoriaJaSalvo = repository.findByNameIgnoreCase(dto.getCategoriaNome());
+        Optional<Categoria> categoriaJaSalvo = repository.findByCategoriaNomeIgnoreCase(dto.getCategoriaNome());
         if (categoriaJaSalvo.isPresent())
             throw new ConflictException("Já existe cadastro com esse nome, verifique!");
 
@@ -56,7 +56,7 @@ public class CategoriaService {
     }
 
     public Categoria update(Integer id, CategoriaDto dto){
-        Optional<Categoria> categoriaJaSalvo = repository.findByNameIgnoreCase(dto.getCategoriaNome());
+        Optional<Categoria> categoriaJaSalvo = repository.findByCategoriaNomeIgnoreCase(dto.getCategoriaNome());
         if (categoriaJaSalvo.isPresent() && !categoriaJaSalvo.get().getId().equals(id)) {
             throw new ConflictException("Já existe cadastro com esse nome, verifique!");
         }

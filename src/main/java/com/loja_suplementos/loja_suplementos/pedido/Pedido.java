@@ -25,7 +25,7 @@ public class Pedido {
     private BigDecimal valor_total;
 
     @Column(precision = 15, scale = 2)
-    private Double quantidade_total;
+    private BigDecimal quantidade_total;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -62,11 +62,11 @@ public class Pedido {
         this.valor_total = valor_total;
     }
 
-    public Double getQuantidade_total() {
+    public BigDecimal getQuantidade_total() {
         return quantidade_total;
     }
 
-    public void setQuantidade_total(Double quantidade_total) {
+    public void setQuantidade_total(BigDecimal quantidade_total) {
         this.quantidade_total = quantidade_total;
     }
 

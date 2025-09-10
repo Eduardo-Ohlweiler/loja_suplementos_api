@@ -12,7 +12,7 @@ public class Categoria {
     private Integer id;
 
     @Column(length=100, nullable=false)
-    private String categoria_nome;
+    private String categoriaNome;
 
     public Integer getId() {
         return id;
@@ -20,10 +20,10 @@ public class Categoria {
 
 
     public String getCategoria_nome() {
-        return categoria_nome;
+        return categoriaNome;
     }
 
     public void setCategoria_nome(String categoria_nome) {
-        this.categoria_nome = categoria_nome;
+        this.categoriaNome = categoria_nome;
     }
 }
