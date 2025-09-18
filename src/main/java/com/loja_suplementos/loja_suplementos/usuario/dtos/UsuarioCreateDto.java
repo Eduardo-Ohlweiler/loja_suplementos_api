@@ -2,6 +2,7 @@ package com.loja_suplementos.loja_suplementos.usuario.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.loja_suplementos.loja_suplementos.usuario.Role;
+import com.loja_suplementos.loja_suplementos.validation.ValidRole;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
@@ -46,6 +47,7 @@ public class UsuarioCreateDto {
 
     @Enumerated(EnumType.STRING)
     @Schema(description = "Permissão do usuario", example = "ADMIN | USER")
+    @ValidRole(message = "Perfil invalido")
     private Role role = Role.USER;
 
     public String getNome() {

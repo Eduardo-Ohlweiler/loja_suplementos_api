@@ -25,7 +25,7 @@ public class DataInitializer {
                 admin.setPassword(passwordEncoder.encode("Admin12345@")); // senha criptografada
                 admin.setTelefone("51992006747");
                 admin.setRole(Role.ADMIN);
-
+//eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzU4MTU3MTE3LCJleHAiOjE3NTgyNDM1MTd9.8JWxkLh36IKg2kCZV6SXchkbE40bZZ23OhJh_gt99sM
                 usuarioRepository.save(admin);
                 System.out.println("Usuário admin criado com sucesso!");
             } else {

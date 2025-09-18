@@ -42,6 +42,9 @@ public class Pedido {
     @Column(nullable=false)
     private PStatus pStatus = PStatus.AGUARDANDO;
 
+    @Column(name = "pagamento_id", length = 50)
+    private String pagamentoId;
+
     public Integer getId() {
         return id;
     }
@@ -88,5 +91,13 @@ public class Pedido {
 
     public void setpStatus(PStatus pStatus) {
         this.pStatus = pStatus;
+    }
+
+    public String getPagamento_id() {
+        return pagamentoId;
+    }
+
+    public void setPagamento_id(String pagamento_id) {
+        this.pagamentoId = pagamento_id;
     }
 }

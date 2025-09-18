@@ -1,7 +1,5 @@
 package com.loja_suplementos.loja_suplementos.produto;
 
-import com.loja_suplementos.loja_suplementos.objetivo.Objetivo;
-import com.loja_suplementos.loja_suplementos.objetivo.dtos.ObjetivoDto;
 import com.loja_suplementos.loja_suplementos.produto.dtos.CreateProdutoDto;
 import com.loja_suplementos.loja_suplementos.produto.dtos.UpdateProdutoDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,7 +41,7 @@ public class ProdutoController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos"),
             @ApiResponse(responseCode = "404", description = "Produto não encontrado")
     })
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<Produto> update(@PathVariable Integer id, @Valid @RequestBody UpdateProdutoDto dto) {
 
         Produto produto = this.produtoService.update(id, dto);

@@ -1,5 +1,6 @@
 package com.loja_suplementos.loja_suplementos.pedido_item;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.loja_suplementos.loja_suplementos.pedido.Pedido;
 import com.loja_suplementos.loja_suplementos.produto.Produto;
 import jakarta.persistence.*;
@@ -18,6 +19,7 @@ public class PedidoItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pedido_id", nullable = false)
+    @JsonIgnore
     private Pedido pedido;
 
     @ManyToOne(fetch = FetchType.LAZY)
