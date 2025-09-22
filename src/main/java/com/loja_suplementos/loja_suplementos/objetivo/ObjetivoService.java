@@ -49,7 +49,7 @@ public class ObjetivoService {
         validadorUsuario.validarAdmin();
 
         Objetivo objetivo = new Objetivo();
-        objetivo.setObjetivo_nome(dto.getObjetivoNome());
+        objetivo.setObjetivoNome(dto.getObjetivoNome());
 
         this.repository.save(objetivo);
         return objetivo;
@@ -64,7 +64,7 @@ public class ObjetivoService {
         validadorUsuario.validarAdmin();
 
         Objetivo objetivo = this.findById(id);
-        objetivo.setObjetivo_nome(dto.getObjetivoNome());
+        objetivo.setObjetivoNome(dto.getObjetivoNome());
 
         return repository.save(objetivo);
     }

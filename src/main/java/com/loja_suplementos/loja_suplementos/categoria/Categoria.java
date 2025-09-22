@@ -19,11 +19,11 @@ public class Categoria {
     }
 
 
-    public String getCategoria_nome() {
+    public String getCategoriaNome() {
         return categoriaNome;
     }
 
-    public void setCategoria_nome(String categoria_nome) {
-        this.categoriaNome = categoria_nome;
+    public void setCategoriaNome(String categoriaNome) {
+        this.categoriaNome = categoriaNome;
     }
 }

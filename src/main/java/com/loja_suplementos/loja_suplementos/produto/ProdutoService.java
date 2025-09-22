@@ -30,8 +30,13 @@ public class ProdutoService {
     @Autowired
     private ValidadorUsuario validadorUsuario;
 
-    public List<Produto> getAll(){
+    public List<Produto> getAll(Integer categoriaId, Integer objetivoId){
+        if (categoriaId != null)
+            return produtoRepository.findByCategoriaId(categoriaId);
 
+        if (objetivoId != null)
+            return produtoRepository.findByObjetivoId(objetivoId);
+        
         return this.produtoRepository.findAll();
     }
 
@@ -101,9 +106,10 @@ public class ProdutoService {
         return produto.get();
     }
 
-    public void delete(Integer deleteId){
+    public void delete(Integer deleteId) {
         validadorUsuario.validarAdmin();
-        Produto produto = this.findById(deleteId);
-        this.produtoRepository.delete(produto);
+        Produto produto = produtoRepository.findById(deleteId)
+                .orElseThrow(() -> new NotFoundException("Produto não encontrado"));
+        produtoRepository.delete(produto);
     }
 }

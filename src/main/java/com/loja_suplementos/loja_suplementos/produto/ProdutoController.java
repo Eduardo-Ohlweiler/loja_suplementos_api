@@ -54,8 +54,12 @@ public class ProdutoController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @GetMapping
-    public ResponseEntity<List<Produto>> getAll(){
-        List<Produto> produtos = this.produtoService.getAll();
+    public ResponseEntity<List<Produto>> getAll(
+
+            @RequestParam(value = "categoria_id", required = false) Integer categoriaId,
+            @RequestParam(value = "objetivo_id", required = false) Integer objetivoId
+    ){
+        List<Produto> produtos = this.produtoService.getAll(categoriaId, objetivoId);
         return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
 

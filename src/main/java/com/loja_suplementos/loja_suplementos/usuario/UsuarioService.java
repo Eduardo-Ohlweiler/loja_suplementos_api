@@ -51,6 +51,7 @@ public class UsuarioService {
         usuario.setEmail(dto.getEmail());
         usuario.setTelefone(dto.getTelefone());
         usuario.setPassword(passwordEncoder.encode(dto.getPassword()));
+        usuario.setEndereco(dto.getEndereco());
 
         if(usuarioId != null){
             Usuario usuario_logado = this.findById(usuarioId);

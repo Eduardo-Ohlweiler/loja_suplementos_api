@@ -20,7 +20,7 @@ public class LoginDto {
             regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).+$",
             message = "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula e um número"
     )
-    @JsonProperty("password_hash")
+    @JsonProperty("password")
     private String password_hash;
 
     public String getEmail() {

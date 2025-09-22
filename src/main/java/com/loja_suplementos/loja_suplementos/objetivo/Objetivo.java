@@ -18,11 +18,11 @@ public class Objetivo {
         return id;
     }
 
-    public String getObjetivo_nome() {
+    public String getObjetivoNome() {
         return objetivoNome;
     }
 
-    public void setObjetivo_nome(String objetivo_nome) {
-        this.objetivoNome = objetivo_nome;
+    public void setObjetivoNome(String objetivoNome) {
+        this.objetivoNome = objetivoNome;
     }
 }

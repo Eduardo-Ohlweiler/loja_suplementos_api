@@ -49,7 +49,7 @@ public class CategoriaService {
         validadorUsuario.validarAdmin();
 
         Categoria categoria = new Categoria();
-        categoria.setCategoria_nome(dto.getCategoriaNome());
+        categoria.setCategoriaNome(dto.getCategoriaNome());
 
         this.repository.save(categoria);
         return categoria;
@@ -64,7 +64,7 @@ public class CategoriaService {
         validadorUsuario.validarAdmin();
 
         Categoria categoria = this.findById(id);
-        categoria.setCategoria_nome(dto.getCategoriaNome());
+        categoria.setCategoriaNome(dto.getCategoriaNome());
 
         return repository.save(categoria);
     }

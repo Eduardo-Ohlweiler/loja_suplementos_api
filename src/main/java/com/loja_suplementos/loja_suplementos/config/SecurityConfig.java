@@ -25,18 +25,16 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf-> csrf.disable())
-                .authorizeHttpRequests(auth-> auth
-                        //ROTAS PÚBLICAS
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/api/categoria/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/api/objetivo/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/api/produto/**").permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/mercadopago/webhook").permitAll()
-
-                        //LIBERAÇÃO DO SWAGGER
                         .requestMatchers(
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
@@ -45,6 +43,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 }

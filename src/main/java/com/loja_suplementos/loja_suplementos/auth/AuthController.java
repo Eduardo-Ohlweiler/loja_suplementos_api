@@ -1,6 +1,7 @@
 package com.loja_suplementos.loja_suplementos.auth;
 
 import com.loja_suplementos.loja_suplementos.auth.dtos.LoginDto;
+import com.loja_suplementos.loja_suplementos.auth.dtos.LoginResponseDto;
 import com.loja_suplementos.loja_suplementos.exceptions.dtos.ExceptionResponseDto;
 import com.loja_suplementos.loja_suplementos.usuario.Usuario;
 import com.loja_suplementos.loja_suplementos.usuario.dtos.UsuarioCreateDto;
@@ -52,8 +53,8 @@ public class AuthController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody LoginDto dto){
-        String temp = this.service.login(dto);
-        return new ResponseEntity<>(temp, HttpStatus.OK);
+    public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginDto dto){
+        LoginResponseDto loginResponseDto = this.service.login(dto);
+        return new ResponseEntity<>(loginResponseDto, HttpStatus.OK);
     }
 }
