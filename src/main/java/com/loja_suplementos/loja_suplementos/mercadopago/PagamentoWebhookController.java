@@ -17,7 +17,7 @@ public class PagamentoWebhookController {
 
     @PostMapping("/webhook")
     @Transactional
-    private ResponseEntity<HttpStatus> processarPagamento(@RequestBody Object body){
+    public ResponseEntity<HttpStatus> processarPagamento(@RequestBody Object body){
         pedidoService.processarPagamento(body);
         return new ResponseEntity<>(HttpStatus.OK);
     }

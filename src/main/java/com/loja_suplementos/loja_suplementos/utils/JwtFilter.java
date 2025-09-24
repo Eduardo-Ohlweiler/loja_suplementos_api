@@ -1,5 +1,6 @@
 package com.loja_suplementos.loja_suplementos.utils;
 
+import com.loja_suplementos.loja_suplementos.exceptions.UnauthorizedException;
 import com.loja_suplementos.loja_suplementos.usuario.Role;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -27,25 +28,29 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        String header = request.getHeader("Authorization");
+        try {
+            String header = request.getHeader("Authorization");
 
-        if(SecurityContextHolder.getContext().getAuthentication() == null && header != null && header.startsWith("Bearer ")) {
-            String token = header.substring(7);
-            try{
+            if (SecurityContextHolder.getContext().getAuthentication() == null && header != null && header.startsWith("Bearer ")) {
+                String token = header.substring(7);
+                //try{
                 Integer id = jwtUtil.getId(token);
-                Role role  = jwtUtil.getRole(token);
+                Role role = jwtUtil.getRole(token);
 
-                List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_"+role));
+                List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_" + role));
 
                 Authentication auth = new UsernamePasswordAuthenticationToken(id, null, authorities);
 
                 SecurityContextHolder.getContext().setAuthentication(auth);
+                //}
+                //catch(Exception e){
+                //     throw new UnauthorizedException("Token invalido ou expirado");
+                //}
             }
-            catch(Exception e){
-                throw new UnavailableException("Token invalido ou expirado");
-            }
+            filterChain.doFilter(request, response);
+        } catch (Exception e) {
+            throw new UnauthorizedException("Token invalido ou expirado");
         }
-        filterChain.doFilter(request, response);
     }
 
 }
